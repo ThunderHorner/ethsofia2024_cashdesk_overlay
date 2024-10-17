@@ -2,20 +2,34 @@ const { app, BrowserWindow, Tray, Menu } = require('electron');
 const path = require('path');
 
 let mainWindow;
+let walletSetupWindow
+let customerPromptWindow
 let tray = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    show: false,  // Hide the window initially
+    show: true,
+    // frame:false,
+    // transparent:true,
     webPreferences: {
       nodeIntegration: true
     }
   });
 
-  // Load your app's HTML file
-  mainWindow.loadFile('index.html');
+  walletSetupWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: true,
+    // frame:false,
+    // transparent:true,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+
+  mainWindow.loadFile('src/index.html');
 
   // Optionally handle window close (on macOS you might want to keep it open)
   mainWindow.on('close', (event) => {
@@ -26,7 +40,7 @@ function createWindow() {
 
 function createTray() {
   // Create tray icon and specify the icon image file
-  tray = new Tray(path.join(__dirname, 'img.png')); // Use a PNG icon in your project directory
+  tray = new Tray(path.join(__dirname, 'static/img.png')); // Use a PNG icon in your project directory
 
   // Create a context menu for the tray
   const contextMenu = Menu.buildFromTemplate([
