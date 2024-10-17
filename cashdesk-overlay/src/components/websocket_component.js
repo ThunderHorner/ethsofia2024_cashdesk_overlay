@@ -2,22 +2,23 @@ import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import {Button} from "@mui/material";
 import sendTransactionFromCsvRow from "../services/send_transaction";
+import CustomerWalletPrompt from "../pages/customerWalletPrompt";
 
 const WebSocketComponent = () => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [socket, setSocket] = useState(null);
+    const [lastMessage, setLastMessage] = useState(null)
 
     useEffect(() => {
         const newSocket = io('http://localhost:5000');
         setSocket(newSocket);
 
         newSocket.on('message', (message) => {
-            sendTransactionFromCsvRow(message)
-                .then(() => console.log("Transaction successful"))
-                .catch((err) => console.error("Transaction failed", err));
             console.log('Received message:', message);  // Add a log to see the message
             setMessages((prevMessages) => [...prevMessages, message]);
+            setLastMessage(message)
+            // return <CustomerWalletPrompt message={message}></CustomerWalletPrompt>
         });
 
         return () => {
@@ -31,6 +32,9 @@ const WebSocketComponent = () => {
         }
     };
 
+    if(lastMessage){
+        return <CustomerWalletPrompt message={lastMessage}></CustomerWalletPrompt>
+    }
     return (
         <div>
             <h2 className={'text-center'}>Tasks</h2>
