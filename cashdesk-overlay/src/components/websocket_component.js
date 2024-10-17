@@ -37,16 +37,16 @@ const WebSocketComponent = () => {
     }
     return (
         <div>
-            <h2 className={'text-center'}>Tasks</h2>
+            <h2 className={'text-center my-5'}>Waiting for commands...</h2>
             <Button
                 variant="outlined"
                 onClick={sendMessage}
-                className="my-5 w-100"
+                className="w-100 mb-5"
             >
                 Ok
             </Button>
 
-            <p>Tasks:</p>
+            <p>commands:</p>
             <ul>
                 {messages.map((message, index) => (
                     <li key={index}>{message}</li>

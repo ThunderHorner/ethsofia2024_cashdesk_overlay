@@ -1,21 +1,30 @@
-import {useState, useEffect} from "react";
-import {Button, TextField} from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import sendTransactionFromCsvRow from "../services/send_transaction";
+import { useState } from "react";
 
-export default function CustomerWalletPrompt(message) {
-    const [customerWallet, setCustomerWallet] = useState("0x976EA74026E726554dB657fA54763abd0C3a0aa9")
+export default function CustomerWalletPrompt({ message }) {
+    const [customerWallet, setCustomerWallet] = useState("0x976EA74026E726554dB657fA54763abd0C3a0aa9");
 
-    function sendContract() {
-        sendTransactionFromCsvRow(message.message, customerWallet)
-            .then(() => console.log("Transaction successful"))
-            .catch((err) => console.error("Transaction failed", err));
-    }
+    // Fire and forget: don't await the transaction, just send it and reload the page
+    const sendContract = () => {
+        sendTransactionFromCsvRow(message, customerWallet)
+            .then(() => {
+                console.log("Transaction initiated");
+                window.location.reload()
+            })
+            .catch((err) => {
+                console.error("Transaction failed", err);
+            });
+
+        // Immediately reload the page after initiating the transaction
+        // window.location.reload();
+    };
 
     return (
         <div>
             <p className="mx-0 mt-5 mb-5 h3 fw2 text-center">Customer's wallet</p>
             <TextField
-                value={customerWallet} // Use value from state
+                value={customerWallet}
                 onChange={(e) => setCustomerWallet(e.target.value)}
                 className="w-100 ml-5 mt-3"
                 label="Customer wallet address"
@@ -30,7 +39,6 @@ export default function CustomerWalletPrompt(message) {
                     Ok
                 </Button>
             </div>
-
         </div>
     );
 }
