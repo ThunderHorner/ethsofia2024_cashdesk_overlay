@@ -19,9 +19,14 @@ export default async function sendTransactionFromCsvRow(csvRow, buyerAddress) {
         const provider = new JsonRpcProvider(RPC_URL);
         const wallet = new Wallet(PRIVATE_KEY, provider);
         const contract = new Contract(contractAddress, PurchaseOrderABI.abi, wallet);
+
+        // Send the transaction without waiting for it to be mined
         const tx = await contract.createPurchase(productId, productName, currency, parseInt(price), buyerAddress, sellerName);
-        await tx.wait();
-        console.log(`Purchase created for product ID: ${productId}, Product Name: ${productName}, Buyer Address: ${buyerAddress}, Seller: ${sellerName}.`);
+
+        console.log(`Transaction sent for product ID: ${productId}, Product Name: ${productName}, Buyer Address: ${buyerAddress}, Seller: ${sellerName}. Transaction hash: ${tx.hash}`);
+
+        // Optionally, you can return the transaction hash
+        return tx.hash;
     } catch (error) {
         console.error("Failed to send transaction:", error.message);
         throw new Error("Failed to send transaction: " + error.message);

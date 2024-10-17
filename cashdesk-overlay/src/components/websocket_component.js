@@ -9,6 +9,18 @@ const WebSocketComponent = () => {
     const [inputValue, setInputValue] = useState('');
     const [socket, setSocket] = useState(null);
     const [lastMessage, setLastMessage] = useState(null)
+    const [dots, setDots] = useState(1);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setDots((prevDots) => (prevDots < 3 ? prevDots + 1 : 1)); // Cycle through 1 to 3 dots
+        }, 200); // Update every second
+
+        return () => clearInterval(interval); // Clear the interval on component unmount
+    }, []);
+
+    // Create the string with dots and replace dots with &nbsp; for the remaining spaces
+    const dotText = '.'.repeat(dots) + '\u00A0'.repeat(3 - dots);
 
     useEffect(() => {
         const newSocket = io('http://localhost:5000');
@@ -37,16 +49,7 @@ const WebSocketComponent = () => {
     }
     return (
         <div>
-            <h2 className={'text-center my-5'}>Waiting for commands...</h2>
-            <Button
-                variant="outlined"
-                onClick={sendMessage}
-                className="w-100 mb-5"
-            >
-                Ok
-            </Button>
-
-            <p>commands:</p>
+            <h2 className={'text-center my-5'}>Listening{dotText}</h2>
             <ul>
                 {messages.map((message, index) => (
                     <li key={index}>{message}</li>
