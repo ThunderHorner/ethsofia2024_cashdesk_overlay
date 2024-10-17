@@ -21,7 +21,7 @@ export default function App() {
             <div className={'col-5 mx-auto'}>
                 {!privateKey && <SetupWallet/>}
                 {privateKey && <div>
-                <WebSocketComponent/>
+                    <WebSocketComponent/>
                 </div>}
             </div>
 
