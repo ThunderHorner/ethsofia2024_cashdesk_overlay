@@ -1,10 +1,12 @@
 import {useState, useEffect} from "react";
 import {Button, TextField} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 export default function SetupWallet() {
     const [sellerName, setSellerName] = useState("");
     const [privateKey, setPrivateKey] = useState("");
     const [contractAddress, setContractAddress] = useState("")
+    const navigator = useNavigate()
     // Use useEffect to update state from localStorage when the component mounts
     useEffect(() => {
         const storedSellerName = localStorage.getItem("sellerName");
@@ -20,6 +22,11 @@ export default function SetupWallet() {
         localStorage.setItem("privateKey", privateKey);
         localStorage.setItem("contractAddress", contractAddress);
         localStorage.setItem("sellerName", sellerName);
+        if (window.location.href == 'http://localhost:3000/settings/') {
+            navigator('/')
+        } else {
+            window.location.reload()
+        }
     }
 
     return (

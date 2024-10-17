@@ -1,0 +1,22 @@
+{
+  "name": "ethsofia2024_cashdesk_overlay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThunderHorner/ethsofia2024_cashdesk_overlay.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThunderHorner/ethsofia2024_cashdesk_overlay/issues"
+  },
+  "homepage": "https://github.com/ThunderHorner/ethsofia2024_cashdesk_overlay#readme",
+  "devDependencies": {
+    "electron": "^33.0.1"
+  }
+}
