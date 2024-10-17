@@ -2,16 +2,16 @@ import {useState, useEffect} from "react";
 import {Button, TextField} from "@mui/material";
 
 export default function SetupWallet() {
-    const [account, setAccount] = useState("");
+    const [sellerName, setSellerName] = useState("");
     const [privateKey, setPrivateKey] = useState("");
     const [contractAddress, setContractAddress] = useState("")
     // Use useEffect to update state from localStorage when the component mounts
     useEffect(() => {
-        const storedAccount = localStorage.getItem("account");
+        const storedSellerName = localStorage.getItem("sellerName");
         const storedPrivateKey = localStorage.getItem("privateKey");
         const storedContractAddress = localStorage.getItem("contractAddress");
 
-        if (storedAccount) setAccount(storedAccount);
+        if (storedSellerName) setSellerName(storedSellerName);
         if (storedPrivateKey) setPrivateKey(storedPrivateKey);
         if (storedContractAddress) setContractAddress(storedContractAddress);
     }, []);
@@ -19,6 +19,7 @@ export default function SetupWallet() {
     function UpdateWallet() {
         localStorage.setItem("privateKey", privateKey);
         localStorage.setItem("contractAddress", contractAddress);
+        localStorage.setItem("sellerName", sellerName);
     }
 
     return (
@@ -29,6 +30,14 @@ export default function SetupWallet() {
                 onChange={(e) => setPrivateKey(e.target.value)}
                 className="w-100 ml-5 mt-3"
                 label="Private Key"
+                variant="outlined"
+                // type={'password'}
+            />
+            <TextField
+                value={sellerName} // Use value from state
+                onChange={(e) => setSellerName(e.target.value)}
+                className="w-100 ml-5 mt-3"
+                label="SellerName"
                 variant="outlined"
                 // type={'password'}
             />

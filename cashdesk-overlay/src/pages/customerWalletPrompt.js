@@ -13,7 +13,7 @@ export default function CustomerWalletPrompt(message) {
 
     return (
         <div>
-            <p className="mx-0 mt-5 mb-5 h3 fw2 text-center">Setup Wallet</p>
+            <p className="mx-0 mt-5 mb-5 h3 fw2 text-center">Customer's wallet</p>
             <TextField
                 value={customerWallet} // Use value from state
                 onChange={(e) => setCustomerWallet(e.target.value)}

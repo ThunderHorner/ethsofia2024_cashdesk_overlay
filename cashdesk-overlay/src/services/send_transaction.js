@@ -4,8 +4,9 @@ import PurchaseOrderABI from '../contracts/PurchaseOrder.json'; // Adjust the pa
 export default async function sendTransactionFromCsvRow(csvRow, buyerAddress) {
     const PRIVATE_KEY = localStorage.getItem('privateKey')
     const contractAddress = localStorage.getItem("contractAddress");
+    const sellerName = localStorage.getItem("sellerName");
     const RPC_URL = process.env.REACT_APP_RPC_URL || "https://hardhat.elunesoft.com";
-    const [productId, productName, currency, price, sellerName] = csvRow.split(',');
+    const [productId, productName, currency, price] = csvRow.split(',');
     console.log(
         productId,
         productName,

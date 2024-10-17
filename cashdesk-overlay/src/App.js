@@ -14,13 +14,15 @@ const darkTheme = createTheme({
 export default function App() {
 
     const privateKey = localStorage.getItem('privateKey')
+    const sellerName = localStorage.getItem('sellerName')
+    const contractAddress = localStorage.getItem('contractAddress')
 
     return (
         <ThemeProvider theme={darkTheme}>
             <CssBaseline/>
             <div className={'col-5 mx-auto'}>
-                {!privateKey && <SetupWallet/>}
-                {privateKey && <div>
+                {(!privateKey || !sellerName || !contractAddress) && <SetupWallet/>}
+                {(privateKey && sellerName && contractAddress) && <div>
                     <WebSocketComponent/>
                 </div>}
             </div>
