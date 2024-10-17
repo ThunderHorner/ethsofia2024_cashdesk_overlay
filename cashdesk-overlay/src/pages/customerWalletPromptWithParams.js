@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 export default function CustomerWalletPromptWithParams() {
-    const [customerWallet, setCustomerWallet] = useState("");
+    const [customerWallet, setCustomerWallet] = useState("0xcd3B766CCDd6AE721141F452C550Ca635964ce71");
     const [message, setMessage] = useState('')
     const location = useLocation();
     const navigator = useNavigate()
@@ -26,7 +26,7 @@ export default function CustomerWalletPromptWithParams() {
         sendTransactionFromCsvRow(message, customerWallet)
             .then(() => {
                 console.log("Transaction initiated");
-                navigator('/')
+                window.close()
             })
             .catch((err) => {
                 console.error("Transaction failed", err);

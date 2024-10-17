@@ -1,26 +1,54 @@
-const { app, BrowserWindow, Tray, Menu } = require('electron');
+const {app, BrowserWindow, Tray, Menu} = require('electron');
 const path = require('path');
 const io = require('socket.io-client'); // Use require instead of import for CommonJS
 
-
 let mainWindow;
+let promptWindow;
 let tray = null;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 700,
-        height: 500,
+        width: 650,
+        height: 480,
+        frame: null,
+        webPreferences: {
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js'),
+            partition: 'persist:sharedSession'
+        }
     });
 
     mainWindow.loadURL('http://localhost:3000/');
 }
 
+function createPromptWindow() {
+    if (!promptWindow) {
+        promptWindow = new BrowserWindow({
+            width: 1200,
+            height: 400,
+            frame:null,
+            alwaysOnTop:true,
+            webPreferences: {
+                contextIsolation: true,
+                preload: path.join(__dirname, 'preload.js'),
+                partition: 'persist:sharedSession'
+            }
+        });
+
+        promptWindow.loadURL('http://localhost:3000/prompt/');
+
+        promptWindow.on('closed', () => {
+            promptWindow = null;  // Dereference the window object
+        });
+    }
+}
+
 function createTray() {
     tray = new Tray(path.join(__dirname, 'logo.png')); // Replace 'logo.png' with the path to your tray icon
     const trayMenu = Menu.buildFromTemplate([
-        { label: 'Settings', click: () => openSettings() },
-        { label: 'Reset', click: () => resetApp() },
-        { label: 'Quit', click: () => app.quit() },
+        {label: 'Settings', click: () => openSettings()},
+        {label: 'Reset', click: () => resetApp()},
+        {label: 'Quit', click: () => app.quit()},
     ]);
     tray.setToolTip('My Electron App');
     tray.setContextMenu(trayMenu);
@@ -43,8 +71,9 @@ function initSocketConnection() {
 
     socket.on('message', (message) => {
         console.log('Received message in Electron:', message);
-        // Navigate the browser window to the transaction page with the message
-        mainWindow.loadURL(`http://localhost:3000/perform-transaction?msg=${message}`);
+        // Ensure the prompt window is open
+        createPromptWindow();
+        promptWindow.loadURL(`http://localhost:3000/perform-transaction?msg=${message}`);
     });
 
     socket.on('connect', () => {

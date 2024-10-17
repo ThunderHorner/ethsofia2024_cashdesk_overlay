@@ -3,9 +3,9 @@ import {Button, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 export default function SetupWallet() {
-    const [sellerName, setSellerName] = useState("");
-    const [privateKey, setPrivateKey] = useState("");
-    const [contractAddress, setContractAddress] = useState("")
+    const [sellerName, setSellerName] = useState("TEst seller name");
+    const [privateKey, setPrivateKey] = useState("0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80");
+    const [contractAddress, setContractAddress] = useState("0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1")
     const navigator = useNavigate()
     // Use useEffect to update state from localStorage when the component mounts
     useEffect(() => {

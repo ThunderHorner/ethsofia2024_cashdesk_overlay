@@ -23,7 +23,8 @@ export default function App() {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline/>
             <Router>
-                <div className={'col-5 mx-auto'}>
+
+                <div className={'col-md-5 col-11 mx-auto'}>
                     <Routes>
                         <Route path="/" element={
                             (!privateKey || !sellerName || !contractAddress)
