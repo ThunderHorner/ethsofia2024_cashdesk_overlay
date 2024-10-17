@@ -5,6 +5,7 @@ import SetupWallet from "./pages/setupWallet";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import WebSocketComponent from "./components/websocket_component";
 import CustomerWalletPrompt from "./pages/customerWalletPrompt";
+import CustomerWalletPromptWithParams from "./pages/customerWalletPromptWithParams";
 
 const darkTheme = createTheme({
     palette: {
@@ -31,6 +32,7 @@ export default function App() {
                         } />
                         <Route path="/settings" element={<SetupWallet/>} />
                         <Route path="/listening" element={<WebSocketComponent/>} />
+                        <Route path="/perform-transaction" element={<CustomerWalletPromptWithParams/>} />
                     </Routes>
                 </div>
             </Router>

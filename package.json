@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ThunderHorner/ethsofia2024_cashdesk_overlay#readme",
   "devDependencies": {
     "electron": "^33.0.1"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.8.0"
   }
 }

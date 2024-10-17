@@ -1,16 +1,32 @@
-import { Button, TextField } from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import sendTransactionFromCsvRow from "../services/send_transaction";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
-export default function CustomerWalletPrompt({ message }) {
+export default function CustomerWalletPromptWithParams() {
     const [customerWallet, setCustomerWallet] = useState("");
+    const [message, setMessage] = useState('')
+    const location = useLocation();
+    const navigator = useNavigate()
+    // Function to parse the query parameters from the URL
+    const getQueryParams = (search) => {
+        const params = new URLSearchParams(search);
+        return {
+            msg: params.get("msg"), // Assuming the parameter is 'wallet'
+        };
+    };
 
-    // Fire and forget: don't await the transaction, just send it and reload the page
+    useEffect(() => {
+        const queryParams = getQueryParams(location.search);
+        if (queryParams.msg) {
+            setMessage(queryParams.msg); // Set customer wallet from query param
+        }
+    }, [location.search]);
     const sendContract = () => {
         sendTransactionFromCsvRow(message, customerWallet)
             .then(() => {
                 console.log("Transaction initiated");
-                window.location.reload()
+                navigator('/')
             })
             .catch((err) => {
                 console.error("Transaction failed", err);
@@ -19,7 +35,6 @@ export default function CustomerWalletPrompt({ message }) {
         // Immediately reload the page after initiating the transaction
         // window.location.reload();
     };
-
     return (
         <div>
             <p className="mx-0 mt-5 mb-5 h3 fw2 text-center">Customer's wallet</p>

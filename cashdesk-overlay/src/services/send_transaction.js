@@ -15,6 +15,7 @@ export default async function sendTransactionFromCsvRow(csvRow, buyerAddress) {
         buyerAddress,
         sellerName
     )
+
     try {
         const provider = new JsonRpcProvider(RPC_URL);
         const wallet = new Wallet(PRIVATE_KEY, provider);
