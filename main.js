@@ -10,7 +10,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 650,
         height: 480,
-        frame: null,
+        // frame: null,
         webPreferences: {
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js'),
@@ -26,7 +26,7 @@ function createPromptWindow() {
         promptWindow = new BrowserWindow({
             width: 1200,
             height: 400,
-            frame:null,
+            // frame:null,
             alwaysOnTop:true,
             webPreferences: {
                 contextIsolation: true,

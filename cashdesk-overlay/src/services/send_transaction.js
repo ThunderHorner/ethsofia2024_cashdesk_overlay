@@ -6,7 +6,8 @@ export default async function sendTransactionFromCsvRow(csvRow, buyerAddress) {
     const contractAddress = localStorage.getItem("contractAddress");
     const sellerName = localStorage.getItem("sellerName");
     const RPC_URL = process.env.REACT_APP_RPC_URL || "https://hardhat.elunesoft.com";
-    const [productId, productName, currency, price] = csvRow.split(',');
+    const [productId, currency, price, productName] = csvRow.split(',');
+
     console.log(
         productId,
         productName,

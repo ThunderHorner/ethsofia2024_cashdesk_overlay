@@ -18,6 +18,7 @@ export default function CustomerWalletPromptWithParams() {
 
     useEffect(() => {
         const queryParams = getQueryParams(location.search);
+        console.log(queryParams.msg)
         if (queryParams.msg) {
             setMessage(queryParams.msg); // Set customer wallet from query param
         }
