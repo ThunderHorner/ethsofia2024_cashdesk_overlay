@@ -2,8 +2,9 @@ import {Button, TextField} from "@mui/material";
 import sendTransactionFromCsvRow from "../services/send_transaction";
 import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import sendTransactionFromWithWarrantyCsvRow from "../services/send_transaction_with_warranty";
 
-export default function CustomerWalletPromptWithParams() {
+export default function CustomerWalletPromptWithParams({withWarranty}) {
     const [customerWallet, setCustomerWallet] = useState("0xcd3B766CCDd6AE721141F452C550Ca635964ce71");
     const [message, setMessage] = useState('')
     const location = useLocation();
@@ -24,14 +25,26 @@ export default function CustomerWalletPromptWithParams() {
         }
     }, [location.search]);
     const sendContract = () => {
-        sendTransactionFromCsvRow(message, customerWallet)
-            .then(() => {
-                console.log("Transaction initiated");
-                window.close()
-            })
-            .catch((err) => {
-                console.error("Transaction failed", err);
-            });
+        if (!withWarranty) {
+            sendTransactionFromCsvRow(message, customerWallet)
+                .then(() => {
+                    console.log("Transaction initiated");
+                    window.close()
+                })
+                .catch((err) => {
+                    console.error("Transaction failed", err);
+                });
+        }else{
+            sendTransactionFromWithWarrantyCsvRow(message, customerWallet)
+                .then(() => {
+                    console.log("Transaction initiated");
+                    window.close()
+                })
+                .catch((err) => {
+                    console.error("Transaction failed", err);
+                });
+        }
+
 
         // Immediately reload the page after initiating the transaction
         // window.location.reload();

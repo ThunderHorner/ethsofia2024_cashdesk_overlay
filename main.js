@@ -27,7 +27,7 @@ function createPromptWindow() {
             width: 1200,
             height: 400,
             // frame:null,
-            alwaysOnTop:true,
+            alwaysOnTop: true,
             webPreferences: {
                 contextIsolation: true,
                 preload: path.join(__dirname, 'preload.js'),
@@ -73,7 +73,13 @@ function initSocketConnection() {
         console.log('Received message in Electron:', message);
         // Ensure the prompt window is open
         createPromptWindow();
-        promptWindow.loadURL(`http://localhost:3000/perform-transaction?msg=${message}`);
+        if (message.split(',').length === 4) {
+            promptWindow.loadURL(`http://localhost:3000/perform-transaction?msg=${message}`);
+        } else {
+            promptWindow.loadURL(`http://localhost:3000/perform-transaction-with-warranty?msg=${message}`);
+        }
+
+
     });
 
     socket.on('connect', () => {

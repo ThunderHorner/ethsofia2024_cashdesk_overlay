@@ -33,7 +33,8 @@ export default function App() {
                         } />
                         <Route path="/settings" element={<SetupWallet/>} />
                         <Route path="/listening" element={<WebSocketComponent/>} />
-                        <Route path="/perform-transaction" element={<CustomerWalletPromptWithParams/>} />
+                        <Route path="/perform-transaction" element={<CustomerWalletPromptWithParams withWarranty={false} />} />
+                        <Route path="/perform-transaction-with-warranty" element={<CustomerWalletPromptWithParams withWarranty={true}/>} />
                     </Routes>
                 </div>
             </Router>
