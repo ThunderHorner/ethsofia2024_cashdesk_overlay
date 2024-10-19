@@ -16,7 +16,7 @@ export default async function sendTransactionFromWithWarrantyCsvRow(csvRow, buye
         buyerAddress,
         sellerName
     )
-
+    // alert("expiration date "+ expirationDate)
     try {
         const provider = new JsonRpcProvider(RPC_URL);
         const wallet = new Wallet(PRIVATE_KEY, provider);

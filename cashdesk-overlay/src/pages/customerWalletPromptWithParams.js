@@ -51,7 +51,7 @@ export default function CustomerWalletPromptWithParams({withWarranty}) {
     };
     return (
         <div>
-            <p className="mx-0 mt-5 mb-5 h3 fw2 text-center">Customer's wallet</p>
+            <p className="mx-0 mt-5 mb-5 h3 fw2 text-center">Receipt receiver address</p>
             <TextField
                 value={customerWallet}
                 onChange={(e) => setCustomerWallet(e.target.value)}
@@ -60,6 +60,13 @@ export default function CustomerWalletPromptWithParams({withWarranty}) {
                 variant="outlined"
             />
             <div className={'d-flex justify-center w-100'}>
+                <Button
+                    variant="outlined"
+                    onClick={sendContract}
+                    className="px-5 mt-5 py-2 mx-auto"
+                >
+                    Ok
+                </Button>
                 <Button
                     variant="outlined"
                     onClick={sendContract}
