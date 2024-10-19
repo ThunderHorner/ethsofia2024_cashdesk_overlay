@@ -85,7 +85,8 @@ class OrderProcessor:
         else:
             pass
             # print(f'product name {self.product_name} order id {self.order_id} price {self.price}')
-        # self.forward_to_printer(line)
+        print(line)
+        self.forward_to_printer(line)
 
     def reset_order_details(self):
         """ Resets all order-related fields except order_id """

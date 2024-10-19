@@ -1,16 +1,10 @@
 #!/bin/bash
 
 # Activate the virtual environment
-source bin/activate
+#!/bin/bash
 
-# Trap for Ctrl+C
-trap "kill 0" EXIT
+# Open the first tab and run the first command
+gnome-terminal --tab --title="Init Virtual Ports" -- bash -c "/home/thunderhorn/PycharmProjects/ethsofia2024_cashdesk_overlay/bin/python python_scripts/ws_server.py; exec bash"
 
-# Run the WebSocket server in the background
-python python_scripts/ws_server.py &
-sleep 5
-# Run the run.sh script in the background
-./run.sh &
-
-# Wait for all processes to finish
-wait
+# Open the second tab and run the second command in the same terminal window
+gnome-terminal --tab --title="Run Script" -- bash -c "./run.sh; exec bash"
