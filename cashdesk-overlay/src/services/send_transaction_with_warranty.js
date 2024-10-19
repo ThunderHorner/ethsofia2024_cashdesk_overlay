@@ -3,7 +3,8 @@ import PurchaseOrderABI from '../contracts/PurchaseOrderWithWarranty.json'; // A
 
 export default async function sendTransactionFromWithWarrantyCsvRow(csvRow, buyerAddress) {
     const PRIVATE_KEY = localStorage.getItem('privateKey')
-    const contractAddress = '0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82';// localStorage.getItem("contractAddress");
+    // const contractAddress = '0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82';// localStorage.getItem("contractAddress");
+    const contractAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0';// localStorage.getItem("contractAddress");
     const sellerName = localStorage.getItem("sellerName");
     const RPC_URL = process.env.REACT_APP_RPC_URL || "https://hardhat.elunesoft.com";
     const [productId, currency, serialNumber,expirationDate, price, productName] = csvRow.split(',');
